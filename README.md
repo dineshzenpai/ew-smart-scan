@@ -4,6 +4,13 @@ A reproducible, pure-Python research prototype for scheduling an Electronic
 Support (ES) receiver across discrete RF bands.  It is a simulation only: it
 does not connect to radios, SDRs, or live spectrum data.
 
+## Live SIH demo
+
+[Open the interactive spectrum command center](https://ew-smart-scan-6496jn2fz-thedolphiniq-1321s-projects.vercel.app)
+
+The hosted demo lets judges compare scan policies and inspect detection,
+false-alarm, prediction, and first-intercept metrics in real time.
+
 ## Problem formulation
 
 At each discrete dwell time `t`, the receiver selects exactly one frequency
@@ -134,3 +141,4 @@ patterns, receiver bandwidth overlap, and emitter behavior that adapts to the
 receiver.  The reported results therefore compare scheduling strategies within
 this synthetic model; they are not predictions of real-world intercept
 performance.
+
