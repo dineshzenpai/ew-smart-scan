@@ -3,79 +3,130 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Interactive Electronic Support smart scan strategy simulation.">
-    <title>EW Smart Scan Strategy</title>
+    <meta name="description" content="Adaptive spectrum intelligence simulator for Electronic Warfare research.">
+    <title>AXIOM // EW Spectrum Intelligence</title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
-    <main>
+    <div class="site-grid" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="AXIOM EW home">
+        <span class="brand-mark">EW</span>
+        <span><b>AXIOM//EW</b><small>Spectrum intelligence lab</small></span>
+      </a>
+      <div class="topbar-status">
+        <span class="online"><i></i>System online</span>
+        <span class="event-tag">SIH · 2026</span>
+      </div>
+    </header>
+
+    <main id="top">
       <section class="hero">
-        <p class="eyebrow">Electronic support receiver research prototype</p>
-        <h1>Smart Scan Strategy</h1>
-        <p class="lede">Explore how a receiver searches a changing RF spectrum when it can inspect only one frequency band at a time.</p>
-      </section>
-
-      <section class="card controls" aria-labelledby="controls-title">
-        <div>
-          <p class="eyebrow">Run a seeded simulation</p>
-          <h2 id="controls-title">Choose the scan policy and scenario</h2>
-        </div>
-        <form id="simulation-form">
-          <label>Policy
-            <select name="method">
-              <option value="discounted_ucb" selected>Discounted UCB bandit</option>
-              <option value="thompson">Thompson sampling</option>
-              <option value="predictive">Predictive greedy</option>
-              <option value="rendezvous">Periodic rendezvous</option>
-              <option value="round_robin">Round-robin sweep</option>
-              <option value="random">Random sweep</option>
-              <option value="static_priority">Static priority sweep</option>
-            </select>
-          </label>
-          <label>Frequency bands <output id="bands-value">8</output>
-            <input name="bands" type="range" min="2" max="20" value="8">
-          </label>
-          <label>Agile-emitter hop rate <output id="agility-value">0.85</output>
-            <input name="agility" type="range" min="0" max="1" step="0.05" value="0.85">
-          </label>
-          <label>Episode horizon
-            <input name="horizon" type="number" min="24" max="360" value="160">
-          </label>
-          <label>Episodes
-            <input name="episodes" type="number" min="1" max="12" value="6">
-          </label>
-          <button type="submit">Run simulation</button>
-        </form>
-      </section>
-
-      <section class="card results" aria-live="polite" aria-labelledby="results-title">
-        <div class="result-heading">
-          <div>
-            <p class="eyebrow">Results</p>
-            <h2 id="results-title">Ready to simulate</h2>
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> Electronic warfare · decision support</p>
+          <h1>The spectrum<br><em>moves.</em> So do we.</h1>
+          <p class="lede">A simulation command center for intelligent RF scanning under uncertainty, interference, and fast-changing emitter behavior.</p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#mission-control">Launch simulation <span>↘</span></a>
+            <a class="text-action" href="#brief">View mission brief</a>
           </div>
-          <span id="status" class="status">Idle</span>
+          <dl class="telemetry">
+            <div><dt>01</dt><dd>Band observed<br>per decision</dd></div>
+            <div><dt>3</dt><dd>Adaptive emitter<br>profiles</dd></div>
+            <div><dt>∞</dt><dd>Unseen spectrum<br>states</dd></div>
+          </dl>
         </div>
-        <p id="result-note">Run the selected policy to calculate interception performance over shared, reproducible scenarios.</p>
+
+        <div class="radar-stage" role="img" aria-label="Animated radar display representing dynamic spectrum scanning">
+          <div class="radar-meta"><span>RF FIELD // LIVE</span><span>+08.41 dB</span></div>
+          <div class="radar">
+            <div class="radar-ring ring-one"></div>
+            <div class="radar-ring ring-two"></div>
+            <div class="radar-ring ring-three"></div>
+            <div class="radar-cross horizontal"></div>
+            <div class="radar-cross vertical"></div>
+            <div class="radar-sweep"></div>
+            <i class="blip blip-a"></i><i class="blip blip-b"></i><i class="blip blip-c"></i>
+            <div class="radar-core"></div>
+          </div>
+          <div class="radar-footer"><span><i></i> TRACKING 03</span><span>8 BANDS / ACTIVE</span></div>
+        </div>
+      </section>
+
+      <section id="brief" class="brief-strip" aria-label="Mission brief">
+        <div class="brief-lead"><span>MISSION BRIEF</span><strong>Turn partial observation into an intercept advantage.</strong></div>
+        <article><b>01 / OBSERVE</b><p>Listen to one noisy band at a time.</p></article>
+        <article><b>02 / LEARN</b><p>Estimate patterns from the receiver's own history.</p></article>
+        <article><b>03 / INTERCEPT</b><p>Prioritize the next highest-value look.</p></article>
+      </section>
+
+      <section id="mission-control" class="mission-layout" aria-labelledby="controls-title">
+        <article class="control-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow"><span></span> Mission control</p><h2 id="controls-title">Configure the next scan.</h2></div>
+            <span class="panel-index">CTRL-01</span>
+          </div>
+          <form id="simulation-form">
+            <label class="wide">Scan policy
+              <select name="method">
+                <option value="discounted_ucb" selected>Discounted UCB · adaptive bandit</option>
+                <option value="thompson">Thompson sampling · Bayesian</option>
+                <option value="predictive">Predictive greedy · forecast-led</option>
+                <option value="rendezvous">Periodic rendezvous · timing-led</option>
+                <option value="round_robin">Round-robin · baseline sweep</option>
+                <option value="random">Random · baseline sweep</option>
+                <option value="static_priority">Static priority · baseline sweep</option>
+              </select>
+            </label>
+            <label>Frequency bands <output id="bands-value">8</output>
+              <input name="bands" type="range" min="2" max="20" value="8">
+              <small>Search-space width</small>
+            </label>
+            <label>Hop-rate volatility <output id="agility-value">0.85</output>
+              <input name="agility" type="range" min="0" max="1" step="0.05" value="0.85">
+              <small>Agile-emitter dynamics</small>
+            </label>
+            <label>Episode horizon
+              <input name="horizon" type="number" min="24" max="360" value="160">
+              <small>Time slots per run</small>
+            </label>
+            <label>Evaluation episodes
+              <input name="episodes" type="number" min="1" max="12" value="6">
+              <small>Repeated seeded trials</small>
+            </label>
+            <button type="submit"><span>Execute smart scan</span><b>↗</b></button>
+          </form>
+        </article>
+
+        <aside class="mission-card" aria-label="System constraints">
+          <div class="mission-card-head"><span>LIVE CONSTRAINTS</span><i>●</i></div>
+          <div class="constraint"><span>01</span><p><b>Single-band sensor</b><small>Every look costs a decision.</small></p></div>
+          <div class="constraint"><span>02</span><p><b>Noisy observations</b><small>Misses and false alarms are modelled.</small></p></div>
+          <div class="constraint"><span>03</span><p><b>Adaptive targets</b><small>Hoppers, bursts, and periodic emitters.</small></p></div>
+          <div class="mission-card-bottom"><span>MODE</span><b>RESEARCH / SYNTHETIC</b></div>
+        </aside>
+      </section>
+
+      <section class="results-panel" aria-live="polite" aria-labelledby="results-title">
+        <div class="result-heading">
+          <div><p class="eyebrow"><span></span> Decision readout</p><h2 id="results-title">Ready for execution.</h2></div>
+          <span id="status" class="status">Standby</span>
+        </div>
+        <p id="result-note">Select a policy, configure the threat environment, and execute a seeded simulation.</p>
         <div id="metric-grid" class="metric-grid" hidden></div>
         <div id="latency" class="latency" hidden></div>
+        <div class="analysis-line"><span>GROUND TRUTH IS RESERVED FOR SCORING</span><span id="result-meta">NO TELEMETRY YET</span></div>
       </section>
 
-      <section class="explain">
-        <article>
-          <h2>Partial observability</h2>
-          <p>The policy receives a noisy alert only from the selected band. Occupancy on every other band remains hidden, which turns scan scheduling into a time-and-frequency search problem.</p>
-        </article>
-        <article>
-          <h2>Emitter mix</h2>
-          <p>Each run combines a fixed periodic scanner, a frequency-agile hopper, and a Markov burst transmitter. Sensor misses, false alarms, and retunes are modeled explicitly.</p>
-        </article>
-        <article>
-          <h2>Interpret results carefully</h2>
-          <p>These are comparisons inside a synthetic model, not predictions of real-world RF interception. The full source code and assumptions are included in the repository.</p>
-        </article>
+      <section class="principles">
+        <article><span>01</span><h2>Partial observability</h2><p>The scheduler never sees the full spectrum. It only learns from the band it chose to inspect.</p></article>
+        <article><span>02</span><h2>Adaptive threats</h2><p>Periodic, bursty, and frequency-agile emitters impose competing timing and prediction challenges.</p></article>
+        <article><span>03</span><h2>Auditable scores</h2><p>Detection, false alarms, timing, reward, and first-intercept latency are all reported together.</p></article>
       </section>
     </main>
+
+    <footer><span>AXIOM//EW · Smart spectrum search prototype</span><span>Built for SIH innovation review</span></footer>
     <script src="/app.js"></script>
   </body>
 </html>
+
