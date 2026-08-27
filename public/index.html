@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Interactive Electronic Support smart scan strategy simulation.">
+    <title>EW Smart Scan Strategy</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Electronic support receiver research prototype</p>
+        <h1>Smart Scan Strategy</h1>
+        <p class="lede">Explore how a receiver searches a changing RF spectrum when it can inspect only one frequency band at a time.</p>
+      </section>
+
+      <section class="card controls" aria-labelledby="controls-title">
+        <div>
+          <p class="eyebrow">Run a seeded simulation</p>
+          <h2 id="controls-title">Choose the scan policy and scenario</h2>
+        </div>
+        <form id="simulation-form">
+          <label>Policy
+            <select name="method">
+              <option value="discounted_ucb" selected>Discounted UCB bandit</option>
+              <option value="thompson">Thompson sampling</option>
+              <option value="predictive">Predictive greedy</option>
+              <option value="rendezvous">Periodic rendezvous</option>
+              <option value="round_robin">Round-robin sweep</option>
+              <option value="random">Random sweep</option>
+              <option value="static_priority">Static priority sweep</option>
+            </select>
+          </label>
+          <label>Frequency bands <output id="bands-value">8</output>
+            <input name="bands" type="range" min="2" max="20" value="8">
+          </label>
+          <label>Agile-emitter hop rate <output id="agility-value">0.85</output>
+            <input name="agility" type="range" min="0" max="1" step="0.05" value="0.85">
+          </label>
+          <label>Episode horizon
+            <input name="horizon" type="number" min="24" max="360" value="160">
+          </label>
+          <label>Episodes
+            <input name="episodes" type="number" min="1" max="12" value="6">
+          </label>
+          <button type="submit">Run simulation</button>
+        </form>
+      </section>
+
+      <section class="card results" aria-live="polite" aria-labelledby="results-title">
+        <div class="result-heading">
+          <div>
+            <p class="eyebrow">Results</p>
+            <h2 id="results-title">Ready to simulate</h2>
+          </div>
+          <span id="status" class="status">Idle</span>
+        </div>
+        <p id="result-note">Run the selected policy to calculate interception performance over shared, reproducible scenarios.</p>
+        <div id="metric-grid" class="metric-grid" hidden></div>
+        <div id="latency" class="latency" hidden></div>
+      </section>
+
+      <section class="explain">
+        <article>
+          <h2>Partial observability</h2>
+          <p>The policy receives a noisy alert only from the selected band. Occupancy on every other band remains hidden, which turns scan scheduling into a time-and-frequency search problem.</p>
+        </article>
+        <article>
+          <h2>Emitter mix</h2>
+          <p>Each run combines a fixed periodic scanner, a frequency-agile hopper, and a Markov burst transmitter. Sensor misses, false alarms, and retunes are modeled explicitly.</p>
+        </article>
+        <article>
+          <h2>Interpret results carefully</h2>
+          <p>These are comparisons inside a synthetic model, not predictions of real-world RF interception. The full source code and assumptions are included in the repository.</p>
+        </article>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
